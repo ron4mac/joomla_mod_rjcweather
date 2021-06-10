@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.9" client="site" method="upgrade">
+	<name>mod_rjcweather</name>
+	<author>{ron4mac}</author>
+	<creationDate>June 2021</creationDate>
+	<copyright>Copyright (C) 2021 RJCreations. All rights reserved.</copyright>
+	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
+	<authorEmail>ronjc@rjconline.net</authorEmail>
+	<authorUrl>ron4mac.com</authorUrl>
+	<version>1.0.0</version>
+	<updater jver="3\.[0123456789]" pver="7.0" />
+	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_rjcweather">mod_rjcweather.php</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+		<folder>iconincs</folder>
+		<folder>language</folder>
+	</files>
+	<media destination="mod_rjcweather" folder="media">
+		<folder>css</folder>
+		<folder>icons</folder>
+		<folder>scss</folder>
+	</media>
+	<config>
+		<fields name="params" addfieldpath="/modules/mod_rjcweather/fields">
+			<fieldset name="basic">
+
+				<field name="source" type="list" default="ow"
+					required="true"
+					label="MOD_RJCWEATHER_PARAM_SOURCE_LABEL"
+					description="MOD_RJCWEATHER_PARAM_SOURCE_DESC"
+				>
+					<option value="ow">OPENWEATHERMAP.ORG</option>
+					<option value="wb">WEATHERBIT.IO</option>
+				</field>
+
+				<field name="apikey_ow" type="text" default="[ OPENWEATHERMAP API KEY ]"
+					required="true"
+					showon="source:ow"
+					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
+				/>
+
+				<field name="apikey_wb" type="text" default="[ WEATHERBIT API KEY ]"
+					required="true"
+					showon="source:wb"
+					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
+				/>
+
+				<field name="get_lat_lng" type="spacer"
+					label="MOD_RJCWEATHER_PARAM_GLOBAL_COORDS_LABEL"
+				/>
+
+				<field name="lat" type="text" filter="float"
+					required="true"
+					label="MOD_RJCWEATHER_PARAM_LATITUDE_LABEL"
+					description="MOD_RJCWEATHER_PARAM_LATITUDE_DESC"
+				/>
+
+				<field name="lng" type="text" filter="float"
+					required="true"
+					label="MOD_RJCWEATHER_PARAM_LONGITUDE_LABEL"
+					description="MOD_RJCWEATHER_PARAM_LONGITUDE_DESC"
+				/>
+
+				<field name="city_id" type="text"
+					label="MOD_RJCWEATHER_PARAM_CITY_ID_LABEL"
+					required="true"
+				/>
+
+				<field name="unit" type="list"
+					label="MOD_RJCWEATHER_PARAM_UNIT_LABEL"
+				>
+					<option value="">MOD_RJCWEATHER_PARAM_UNIT_KELVIN</option>
+					<option value="imperial">MOD_RJCWEATHER_PARAM_UNIT_FAHRENHEIT</option>
+					<option value="metric">MOD_RJCWEATHER_PARAM_UNIT_CELCIUS</option>
+				</field>
+
+				<field name="forecast" type="list" default="5"
+					label="FORECAST"
+					description="FORECAST_DESC"
+				>
+					<option value="2">1DAY</option>
+					<option value="3">2DAYS</option>
+					<option value="4">3DAYS</option>
+					<option value="5">4DAYS</option>
+					<option value="6">5DAYS</option>
+					<option value="7">6DAYS</option>
+					<option value="8">1WEEK</option>
+					<option value="0">DISABLED</option>
+				</field>
+
+				<field name="color" type="list" default="solid-black"
+					label="MOD_RJCWEATHER_PARAM_COLOR_LABEL"
+				>
+					<option value="solid-black">MOD_RJCWEATHER_PARAM_COLOR_OPTION_SOLID_BLACK</option>
+					<option value="solid-white">MOD_RJCWEATHER_PARAM_COLOR_OPTION_SOLID_WHITE</option>
+					<option value="black">MOD_RJCWEATHER_PARAM_COLOR_OPTION_BLACK</option>
+					<option value="white">MOD_RJCWEATHER_PARAM_COLOR_OPTION_WHITE</option>
+				</field>
+
+				<field name="apikey" type="text"
+					required="true"
+					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
+				/>
+
+			</fieldset>
+<!--
+			<fieldset name="advanced">
+
+				<field name="layout" type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+				/>
+
+				<field name="moduleclass_sfx" type="textarea" rows="3"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+				/>
+
+				<field name="cache" type="list" default="0"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC"
+				>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+				</field>
+
+				<field name="cache_time" type="number" default="0" filter="integer"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+				/>
+
+				<field name="cachemode" type="hidden" default="itemid">
+					<option value="itemid"></option>
+				</field>
+			</fieldset>
+-->
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" priority="1" name="RJCWeather Updates">http://rjcrans.net/jupdates/mod_rjcweather/updates.php</server>
+	</updateservers>
+</extension>

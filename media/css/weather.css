@@ -1,0 +1,15 @@
+.mod-rjcw{/*padding:5px*/}
+.mod-rjcw_c{margin:0 0 10px;padding-top: 10px;border-top: 1px solid #DDD}
+.mod-rjcw_cleft{float:left;margin-right:24px;width:33%;text-align:center}
+p.mod-rjcw-current_temp{font-size:18px}
+.mod-rjcw_cright{float:left}
+p.mod-rjcw_city{font-size:24px;line-height:24px;font-weight:700;margin:15px 0 0;padding:0}
+.block_even,.block_odd{text-align:center}
+.list_even,.list_odd{width:100%;border-top:1px dashed #DDD}
+span.mod-rjcw_list_day,span.mod-rjcw_list_temp,span.mod-rjcw_list_icon{height:32px;line-height:32px;display:block;float:left;width:33%;font-size:small}
+span.mod-rjcw_temp,span.mod-rjcw_list_icon{font-size:smaller;text-align:center}
+img.mod-rjcw-icon_big{height:72px}
+img.mod-rjcw-icon{height:32px}
+/*span.mod-rjcw_list_day{font-size:.7rem}*/
+span.mod-rjcw_list_temp{text-align:right}
+.mod-rjcw-row_head{font-size:large}
