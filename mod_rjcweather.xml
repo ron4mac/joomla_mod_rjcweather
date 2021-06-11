@@ -63,15 +63,10 @@
 					description="MOD_RJCWEATHER_PARAM_LONGITUDE_DESC"
 				/>
 
-				<field name="city_id" type="text"
-					label="MOD_RJCWEATHER_PARAM_CITY_ID_LABEL"
-					required="true"
-				/>
-
 				<field name="unit" type="list"
 					label="MOD_RJCWEATHER_PARAM_UNIT_LABEL"
 				>
-					<option value="">MOD_RJCWEATHER_PARAM_UNIT_KELVIN</option>
+					<option value="standard">MOD_RJCWEATHER_PARAM_UNIT_KELVIN</option>
 					<option value="imperial">MOD_RJCWEATHER_PARAM_UNIT_FAHRENHEIT</option>
 					<option value="metric">MOD_RJCWEATHER_PARAM_UNIT_CELCIUS</option>
 				</field>

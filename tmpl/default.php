@@ -7,10 +7,14 @@ use Joomla\CMS\Language\Text;
 
 Factory::getDocument()->addStylesheet('media/mod_rjcweather/css/weather.css');
 
+$owm = $params->get('source', 'ow') == 'ow';
+
 $current = $weather['current'];
-$now = reset($current->weather);
+$now = $owm ? reset($current->weather) : $current->weather;
 $forecasts = $weather['forecasts'];
-$nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset ? false : true;
+$cwtime = $owm ? time() : gmdate('Hi');
+$nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false : true;
+echo $cwtime.'@'.$nighticon.' - '.$current->sunrise.' - '.$current->sunset;
 
 //$location = (trim($params->get('locationTranslated'))=='') ? $params->get('location') : $params->get('locationTranslated');
 //$forecast = $data['forecasts'];
@@ -21,7 +25,7 @@ $nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset
 	<div class="mod-rjcw_c">
 <?php if (true): ?>
 		<div class="mod-rjcw_cleft">
-			<img class="mod-rjcw-icon_big" src="<?php echo RJCWeatherHelper::icon($now->id, $params, $nighticon); ?>"
+			<img class="mod-rjcw-icon_big" src="<?php echo RJCWeatherHelper::icon($owm ? $now->id : $now->code, $params, $nighticon); ?>"
 			height="96px"
 			title="<?php echo $now->description;?>"
 			alt="<?php echo $now->description; ?>" />
@@ -40,11 +44,11 @@ $nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset
 
 			<?php if ($params->get('condition', 1)==1) { ?>
 			<div class="mod-rjcw-row_head"><?php
-			echo $now->main; ?></div>
+			echo $owm ? $now->main : $now->description; ?></div>
 			<?php } ?>
 
 			<?php if ($params->get('humidity', 1)==1) { ?>
-			<div class="mod-rjcw-row"><?php echo Text::_('MOD_RJCWEATHER_HUMIDITY'); ?>: <?php echo $current->humidity; ?>%</div>
+			<div class="mod-rjcw-row"><?php echo Text::_('MOD_RJCWEATHER_HUMIDITY'); ?>: <?php echo $owm ? $current->humidity : $current->rh; ?>%</div>
 			<?php } ?>
 
 			<?php if ($params->get('wind', 1)==1) { ?>
@@ -52,16 +56,16 @@ $nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset
 
 			$compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
 
-			$windir = $compass[round($current->wind_deg / 22.5)];
+			$windir = $compass[round(($owm ? $current->wind_deg : $current->wind_dir) / 22.5)];
 
-			echo $windir . Text::_('MOD_RJCWEATHER_AT') . round($current->wind_speed) . ' MPH'; ?></div>
+			echo $windir . Text::_('MOD_RJCWEATHER_AT') . round($owm ? $current->wind_speed : $current->wind_spd) . ' MPH'; ?></div>
 			<?php } ?>
 
 			<?php if ($params->get('wind_chill', 1)==1) { ?>
-			<div class="mod-rjcw-row"><?php echo Text::_('MOD_RJCWEATHER_FEELS'); ?>: <?php echo RJCWeatherHelper::temp($current->feels_like, $params); ?></div>
+			<div class="mod-rjcw-row"><?php echo Text::_('MOD_RJCWEATHER_FEELS'); ?>: <?php echo RJCWeatherHelper::temp($owm ? $current->feels_like : $current->app_temp, $params); ?></div>
 			<?php } ?>
 
-			<?php if ($params->get('todayhi', 1)==1) { ?>
+			<?php if ($owm && $params->get('todayhi', 1)==1) { ?>
 			<div class="mod-rjcw-row"><?php echo Text::_('MOD_RJCWEATHER_HITODAY'); ?>: <?php echo RJCWeatherHelper::temp($forecasts[0]->temp->max, $params); ?></div>
 			<?php } ?>
 		</div>
@@ -82,13 +86,13 @@ $nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset
 
 			if ($fcnt<$j) break;
 
-			$wcc = $fcast->weather[0]->id;
-			$desc = $fcast->weather[0]->description;
+			$wcc = $owm ? $fcast->weather[0]->id : $fcast->weather->code;
+			$desc = $owm ? $fcast->weather[0]->description : $fcast->weather->description;
 
 			if ($params->get('tmpl_layout', 'list')=='list') { ?>
 			<div class="list_<?php echo ($i%2 ? 'even' : 'odd') ?>">
 				<span class="mod-rjcw_list_day">
-					<?php echo RJCWeatherHelper::dow($fcast->dt); ?>
+					<?php echo RJCWeatherHelper::dow($owm ? $fcast->dt : $fcast->ts); ?>
 				</span>
 				<span class="mod-rjcw_list_icon">
 					<img class="mod-rjcw-icon" src="<?php echo RJCWeatherHelper::icon($wcc,$params); ?>"
@@ -96,12 +100,16 @@ $nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset
 					title="<?php echo $desc; ?>"
 					alt="<?php echo $desc; ?>" />
 					<?php if ($fcast->pop): ?>
-					<span align="right"><?php echo $fcast->pop * 100 . '%'; ?></span>
+					<span align="right"><?php echo $fcast->pop * ($owm ? 100 : 1) . '%'; ?></span>
 					<?php else: ?>
 					<?php endif; ?>
 				</span>
 				<span class="mod-rjcw_list_temp">
-					<?php echo RJCWeatherHelper::temp($fcast->temp->max, $params) . '&nbsp;' . $params->get('separator', '/') . '&nbsp;' . RJCWeatherHelper::temp($fcast->temp->min, $params); ?>
+					<?php
+					$htmp = $owm ? $fcast->temp->max : $fcast->high_temp;
+					$ltmp = $owm ? $fcast->temp->min : $fcast->low_temp;
+					echo RJCWeatherHelper::temp($htmp, $params) . '&nbsp;' . $params->get('separator', '/') . '&nbsp;' . RJCWeatherHelper::temp($ltmp, $params);
+					?>
 				</span>
 				<div style="clear:both"></div>
 			</div>
@@ -118,7 +126,11 @@ $nighticon = $current->dt > $current->sunrise && $current->dt < $current->sunset
 				</span>
 				<br style="clear:both" />
 				<span class="mod-rjcw_temp">
-					<?php echo RJCWeatherHelper::temp($fcast->temp->max, $params) . '&nbsp;' . $params->get('separator', '/') . '&nbsp;' . RJCWeatherHelper::dow($fcast->temp->min, $params); ?>
+					<?php
+					$htmp = $owm ? $fcast->temp->max : $fcast->high_temp;
+					$ltmp = $owm ? $fcast->temp->min : $fcast->low_temp;
+					echo RJCWeatherHelper::temp($htmp, $params) . '&nbsp;' . $params->get('separator', '/') . '&nbsp;' . RJCWeatherHelper::temp($ltmp, $params);
+					?>
 				</span>
 			<br style="clear:both" />
 		</div>
