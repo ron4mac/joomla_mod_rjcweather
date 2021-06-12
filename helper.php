@@ -10,13 +10,6 @@ use Joomla\CMS\Http\HttpFactory;
 
 class RJCWeatherHelper
 {
-	static protected $apiurl = 'https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LNG}&exclude=minutely,hourly&APPID={APIKEY}';
-
-//	https://api.weatherbit.io/v2.0/current?lat=35.7796&lon=-78.6382&units=I&key=API_KEY
-//	https://api.weatherbit.io/v2.0/forecast/daily?lat=35.7796&lon=-78.6382&units=I&days=7&key=API_KEY
-
-	static protected $iconpath = 'media/mod_rjcweather/icons/';
-
 
 	static public function getWeather ($params)
 	{
@@ -27,14 +20,7 @@ class RJCWeatherHelper
 			return false;
 		}
 
-		$options = [
-			'lifetime' => 15,
-			'storage' => 'file',
-			'defaultgroup' => 'rjcweather',
-			'caching' => true
-		];
-
-	//	return self::loadWeatherInformation($params);				// @@@@@@@@@@@ UNCOMMENT TO RETURN WITHOUT CACHING
+		$options = ['lifetime'=>15, 'storage'=>'file', 'defaultgroup'=>'rjcweather', 'caching'=>true];
 
 		$cache = Cache::getInstance('callback', $options);
 
@@ -175,7 +161,7 @@ class RJCWeatherHelper
 	{
 		include_once 'iconincs/is03.php';
 
-		return static::$iconpath . getIcon($wcc, $nt, $params);
+		return 'media/mod_rjcweather/icons/' . getIcon($wcc, $nt, $params);
 	}
 
 
