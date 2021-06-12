@@ -12,9 +12,9 @@ $owm = $params->get('source', 'ow') == 'ow';
 $current = $weather['current'];
 $now = $owm ? reset($current->weather) : $current->weather;
 $forecasts = $weather['forecasts'];
-$cwtime = $owm ? time() : gmdate('Hi');
+$cwtime = $owm ? $current->dt : gmdate('Hi', $current->ts);
 $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false : true;
-//echo $cwtime.'@'.$nighticon.' - '.$current->sunrise.' - '.$current->sunset;
+//echo $cwtime.' - '.$current->sunrise.' - '.$current->sunset;
 
 //$location = (trim($params->get('locationTranslated'))=='') ? $params->get('location') : $params->get('locationTranslated');
 //$forecast = $data['forecasts'];

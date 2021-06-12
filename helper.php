@@ -65,7 +65,7 @@ class RJCWeatherHelper
 			return false;
 		}
 
-		$content = new Registry($result->body);		//file_put_contents('WEATHER.TXT',print_r($content,true),FILE_APPEND);
+		$content = new Registry($result->body);		//file_put_contents('WEATHERm.TXT',print_r($content,true),FILE_APPEND);
 
 		$forecasts = $content->get('daily', []);
 
@@ -111,8 +111,8 @@ class RJCWeatherHelper
 			return false;
 		}
 
-		$content = new Registry($result->body);
-		$current = $content->get('data')[0];		//file_put_contents('WEATHER.TXT',print_r($current,true),FILE_APPEND);
+		$content = new Registry($result->body);		//file_put_contents('WEATHERo.TXT',print_r($content,true),FILE_APPEND);
+		$current = $content->get('data')[0];		//file_put_contents('WEATHERo.TXT',print_r($current,true),FILE_APPEND);
 
 		// make surise/sunset useable
 		$current->sunrise = str_replace(':','',$current->sunrise);
@@ -121,13 +121,13 @@ class RJCWeatherHelper
 
 		$url = str_replace(['{APIKEY}','{LAT}','{LNG}','{UNIT}','{DAYS}'], [$apikey,$params->get('lat'),$params->get('lng'),$unit,7], $apiurl_f);
 
-		$result = $http->get($url);					//file_put_contents('WEATHER.TXT',print_r([$url,$result],true));
+		$result = $http->get($url);					//file_put_contents('WEATHERo.TXT',print_r([$url,$result],true));
 
 		if ($result->code != 200) {
 			return false;
 		}
 
-		$content = new Registry($result->body);
+		$content = new Registry($result->body);		//file_put_contents('WEATHERo.TXT',print_r($content,true),FILE_APPEND);
 		$forecasts = $content->get('data');			//file_put_contents('WEATHER.TXT',print_r($forecasts,true),FILE_APPEND);
 
 		if (empty($forecasts) || !is_array($forecasts)) {
