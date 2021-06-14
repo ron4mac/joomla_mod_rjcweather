@@ -7,8 +7,8 @@
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>ronjc@rjconline.net</authorEmail>
 	<authorUrl>ron4mac.com</authorUrl>
-	<version>1.0.0</version>
-	<updater jver="3\.[0123456789]" pver="7.0" />
+	<version>1.0.1</version>
+	<updater jver="3\.[123456789]" pver="7.0" />
 	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_rjcweather">mod_rjcweather.php</filename>
@@ -94,10 +94,12 @@
 					<option value="white">MOD_RJCWEATHER_PARAM_COLOR_OPTION_WHITE</option>
 				</field>
 
+<!--
 				<field name="apikey" type="text"
 					required="true"
 					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
 				/>
+-->
 
 			</fieldset>
 <!--

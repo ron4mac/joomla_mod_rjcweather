@@ -16,8 +16,6 @@ $cwtime = $owm ? $current->dt : gmdate('Hi', $current->ts);
 $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false : true;
 //echo $cwtime.' - '.$current->sunrise.' - '.$current->sunset;
 
-//$location = (trim($params->get('locationTranslated'))=='') ? $params->get('location') : $params->get('locationTranslated');
-//$forecast = $data['forecasts'];
 //echo'<xmp>';var_dump($weather);echo'</xmp>';
 ?>
 <div id="mod-rjcw_id<?php echo $moduleID; ?>" class="mod-rjcw">
@@ -80,6 +78,7 @@ $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false :
 		<?php
 		$fcnt = (int) $params->get('forecast', 7);
 		$j = 1;
+		//ignore today's forecast
 		unset($forecasts[0]);
 
 		foreach ($forecasts as $i=>$fcast ) {
@@ -88,8 +87,7 @@ $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false :
 
 			$wcc = $owm ? $fcast->weather[0]->id : $fcast->weather->code;
 			$desc = $owm ? $fcast->weather[0]->description : $fcast->weather->description;
-
-			if ($params->get('tmpl_layout', 'list')=='list') { ?>
+?>
 			<div class="list_<?php echo ($i%2 ? 'even' : 'odd') ?>">
 				<span class="mod-rjcw_list_day">
 					<?php echo RJCWeatherHelper::dow($owm ? $fcast->dt : $fcast->ts); ?>
@@ -113,31 +111,7 @@ $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false :
 				</span>
 				<div style="clear:both"></div>
 			</div>
-			<?php } else { ?>
-			<div class="block_<?php echo ($i%2 ? 'even' : 'odd') ?>" style="float:left;width:<?php echo round(100/$fcnt) ?>%">
-				<span class="mod-rjcw_day">
-					<?php echo RJCWeatherHelper::dow($fcast->dt); ?>
-				</span>
-				<br style="clear:both" />
-				<span class="mod-rjcw_icon">
-					<img class="mod-rjcw-icon" src="<?php echo RJCWeatherHelper::icon($wcc,$params); ?>"
-					title="<?php echo 'TEXT'; ?>"
-					alt="<?php echo 'TEXT'; ?>" />
-				</span>
-				<br style="clear:both" />
-				<span class="mod-rjcw_temp">
-					<?php
-					$htmp = $owm ? $fcast->temp->max : $fcast->high_temp;
-					$ltmp = $owm ? $fcast->temp->min : $fcast->low_temp;
-					echo RJCWeatherHelper::temp($htmp, $params) . '&nbsp;' . $params->get('separator', '/') . '&nbsp;' . RJCWeatherHelper::temp($ltmp, $params);
-					?>
-				</span>
-			<br style="clear:both" />
-		</div>
-		<?php } ?>
-		<?php
-
-		$j++;
+		<?php $j++;
 		} ?>
 	</div>
 	<?php } ?>
