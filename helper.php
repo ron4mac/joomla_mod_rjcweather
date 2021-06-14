@@ -20,7 +20,12 @@ class RJCWeatherHelper
 			return false;
 		}
 
-		$options = ['lifetime'=>15, 'storage'=>'file', 'defaultgroup'=>'rjcweather', 'caching'=>true];
+		$options = [
+			'lifetime' => $params->get('cache_time','15'),
+			'storage' => 'file',
+			'defaultgroup' => 'rjcweather',
+			'caching' => true
+		];
 
 		$cache = Cache::getInstance('callback', $options);
 

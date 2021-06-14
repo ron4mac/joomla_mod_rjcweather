@@ -13,6 +13,7 @@ $current = $weather['current'];
 $now = $owm ? reset($current->weather) : $current->weather;
 $forecasts = $weather['forecasts'];
 $cwtime = $owm ? $current->dt : gmdate('Hi', $current->ts);
+if (!$owm && $cwtime < 200) $cwtime += 2400;
 $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false : true;
 //echo $cwtime.' - '.$current->sunrise.' - '.$current->sunset;
 

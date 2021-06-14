@@ -26,28 +26,7 @@
 		<fields name="params" addfieldpath="/modules/mod_rjcweather/fields">
 			<fieldset name="basic">
 
-				<field name="source" type="list" default="ow"
-					required="true"
-					label="MOD_RJCWEATHER_PARAM_SOURCE_LABEL"
-					description="MOD_RJCWEATHER_PARAM_SOURCE_DESC"
-				>
-					<option value="ow">OPENWEATHERMAP.ORG</option>
-					<option value="wb">WEATHERBIT.IO</option>
-				</field>
-
-				<field name="apikey_ow" type="text" default="[ OPENWEATHERMAP API KEY ]"
-					required="true"
-					showon="source:ow"
-					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
-				/>
-
-				<field name="apikey_wb" type="text" default="[ WEATHERBIT API KEY ]"
-					required="true"
-					showon="source:wb"
-					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
-				/>
-
-				<field name="get_lat_lng" type="spacer"
+				<field name="get_lat_lng" type="spacer" class="text"
 					label="MOD_RJCWEATHER_PARAM_GLOBAL_COORDS_LABEL"
 				/>
 
@@ -63,7 +42,21 @@
 					description="MOD_RJCWEATHER_PARAM_LONGITUDE_DESC"
 				/>
 
-				<field name="unit" type="list"
+				<field name="forecast" type="list" default="5"
+					label="MOD_RJCWEATHER_PARAM_FORECAST_LABEL"
+					description="MOD_RJCWEATHER_PARAM_FORECAST_DESC"
+				>
+					<option value="2">1</option>
+					<option value="3">2</option>
+					<option value="4">3</option>
+					<option value="5">4</option>
+					<option value="6">5</option>
+					<option value="7">6</option>
+					<option value="8">7</option>
+					<option value="0">0</option>
+				</field>
+
+				<field name="unit" type="list" default="imperial"
 					label="MOD_RJCWEATHER_PARAM_UNIT_LABEL"
 				>
 					<option value="standard">MOD_RJCWEATHER_PARAM_UNIT_KELVIN</option>
@@ -71,18 +64,49 @@
 					<option value="metric">MOD_RJCWEATHER_PARAM_UNIT_CELCIUS</option>
 				</field>
 
-				<field name="forecast" type="list" default="5"
-					label="FORECAST"
-					description="FORECAST_DESC"
+				<field name="source" type="list" default="ow"
+					label="MOD_RJCWEATHER_PARAM_SOURCE_LABEL"
+					description="MOD_RJCWEATHER_PARAM_SOURCE_DESC"
 				>
-					<option value="2">1DAY</option>
-					<option value="3">2DAYS</option>
-					<option value="4">3DAYS</option>
-					<option value="5">4DAYS</option>
-					<option value="6">5DAYS</option>
-					<option value="7">6DAYS</option>
-					<option value="8">1WEEK</option>
-					<option value="0">DISABLED</option>
+					<option value="ow">openweathermap.org</option>
+					<option value="wb">weatherbit.io</option>
+				</field>
+
+				<field name="apikey_ow" type="text" default="[ OPENWEATHERMAP API KEY ]"
+					required="true"
+					showon="source:ow"
+					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
+					description="MOD_RJCWEATHER_PARAM_APIKEY_DESC"
+				/>
+
+				<field name="apikey_wb" type="text" default="[ WEATHERBIT API KEY ]"
+					required="true"
+					showon="source:wb"
+					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
+					description="MOD_RJCWEATHER_PARAM_APIKEY_DESC"
+				/>
+
+<!--
+				<field name="apikey" type="text"
+					required="true"
+					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
+				/>
+-->
+
+			</fieldset>
+
+			<fieldset name="advanced">
+
+				<field name="cache_time" type="list" default="15"
+					label="MOD_RJCWEATHER_PARAM_CACHE_TIME_LABEL"
+					description="MOD_RJCWEATHER_PARAM_CACHE_TIME_DESC"
+				>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<option value="25">25</option>
+					<option value="30">30</option>
 				</field>
 
 				<field name="color" type="list" default="solid-black"
@@ -94,17 +118,8 @@
 					<option value="white">MOD_RJCWEATHER_PARAM_COLOR_OPTION_WHITE</option>
 				</field>
 
+				<field type="spacer" name="advsep" hr="true" />
 <!--
-				<field name="apikey" type="text"
-					required="true"
-					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
-				/>
--->
-
-			</fieldset>
-<!--
-			<fieldset name="advanced">
-
 				<field name="layout" type="modulelayout"
 					label="JFIELD_ALT_LAYOUT_LABEL"
 					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
@@ -131,8 +146,8 @@
 				<field name="cachemode" type="hidden" default="itemid">
 					<option value="itemid"></option>
 				</field>
-			</fieldset>
 -->
+			</fieldset>
 		</fields>
 	</config>
 	<updateservers>
