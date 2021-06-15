@@ -1,0 +1,12 @@
+# top-most EditorConfig file
+root = true
+
+# Don't use tabs for indentation.
+[*]
+indent_style = tab
+# (Please don't specify an indent_size here; that has too many unintended consequences.)
+
+# Code files
+[*.{php,js,css}]
+indent_size = 4
+insert_final_newline = true
