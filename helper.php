@@ -8,10 +8,26 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Http\HttpFactory;
 
+class modRJCWeatherHelper
+{
+	// AJAX call made by COM_AJAX 
+	public static function getAjax ()
+	{
+		$moduleName = basename(dirname(__FILE__));
+		$moduleID = Factory::getApplication()->input->post->getString('modid');
+		$module = JModuleHelper::getModuleById($moduleID);
+		$params = new Registry($module->params);
+		$weather = RJCWeatherHelper::getWeather($params);
+		require JModuleHelper::getLayoutPath($moduleName, 'default');
+	}
+
+}
+
+
 class RJCWeatherHelper
 {
 
-	static public function getWeather ($params)
+	public static function getWeather ($params)
 	{
 		// get the selected weather data source (openweathermap or weatherbit)
 		$source = $params->get('source', 'ow');
@@ -40,7 +56,7 @@ class RJCWeatherHelper
 	}
 
 
-	static public function owLoadWeatherInformation ($params)
+	public static function owLoadWeatherInformation ($params)
 	{
 		$apiurl = 'https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LNG}&exclude=minutely,hourly&APPID={APIKEY}';
 
@@ -88,7 +104,7 @@ class RJCWeatherHelper
 	}
 
 
-	static public function wbLoadWeatherInformation ($params)
+	public static function wbLoadWeatherInformation ($params)
 	{
 		$apiurl_c = 'https://api.weatherbit.io/v2.0/current?lat={LAT}&lon={LNG}&units={UNIT}&key={APIKEY}';
 		$apiurl_f = 'https://api.weatherbit.io/v2.0/forecast/daily?lat={LAT}&lon={LNG}&units={UNIT}&days={DAYS}&key={APIKEY}';
@@ -147,7 +163,7 @@ class RJCWeatherHelper
 	}
 
 
-	static public function temp ($value, $params)
+	public static function temp ($value, $params)
 	{
 		$shortunit = 'KELVIN';
 		switch ($params->get('unit')) {
@@ -162,7 +178,7 @@ class RJCWeatherHelper
 	}
 
 
-	static public function icon ($wcc, $params, $nt=false)
+	public static function icon ($wcc, $params, $nt=false)
 	{
 		include_once 'iconincs/is03.php';
 
@@ -170,7 +186,7 @@ class RJCWeatherHelper
 	}
 
 
-	static public function dow ($dt)
+	public static function dow ($dt)
 	{
 		return date('l', $dt);
 	}
