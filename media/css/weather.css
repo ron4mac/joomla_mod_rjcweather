@@ -13,3 +13,16 @@ img.mod-rjcw-icon{height:32px}
 /*span.mod-rjcw_list_day{font-size:.7rem}*/
 span.mod-rjcw_list_temp{text-align:right}
 .mod-rjcw-row_head{font-size:large}
+.sp-preloader > div {
+	pointer-events: none;
+	width: 2.5em;
+	height: 2.5em;
+	border: 0.25em solid transparent;
+	border-color: #eee;
+	border-top-color: gray;
+	border-radius: 50%;
+	animation: loadingspin 2s linear infinite;
+	background: none;
+}
+.sp-preloader > div:after {content: none}
+@keyframes loadingspin { 100% {transform: rotate(360deg)} }

@@ -33,5 +33,7 @@ Factory::getDocument()->addScriptDeclaration($js);
 
 ?>
 <div id="rjc_weather_id<?php echo $moduleID; ?>">
-	<span class="weather-loading"><?php echo Text::_('MOD_RJCWEATHER_LOADING'); ?></span>
+	<div class="sp-preloader">
+		<div> </div>
+	</div>
 </div>
