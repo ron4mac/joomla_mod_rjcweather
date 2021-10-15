@@ -18,6 +18,12 @@ class modRJCWeatherHelper
 		$module = JModuleHelper::getModuleById($moduleID);
 		$params = new Registry($module->params);
 		$weather = RJCWeatherHelper::getWeather($params);
+
+		if (!$weather) {
+			echo Text::_(RJCWeatherHelper::$error);
+			return;
+		}
+
 		require JModuleHelper::getLayoutPath($moduleName, 'default');
 	}
 
@@ -26,6 +32,8 @@ class modRJCWeatherHelper
 
 class RJCWeatherHelper
 {
+
+	public static $error;
 
 	public static function getWeather ($params)
 	{
@@ -61,13 +69,14 @@ class RJCWeatherHelper
 		$apiurl = 'https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LNG}&exclude=minutely,hourly&APPID={APIKEY}';
 
 		// get the 2 character current Joomla language code
-		$lang = substr(Factory::getLanguage()->get('tag'),0,2);
+		$lang = substr(Factory::getLanguage()->get('tag'), 0, 2);
 
 		$http = HttpFactory::getHttp();
 
 		$apikey = $params->get('apikey_ow');
 
 		if (empty($apikey)) {
+			self::$error = 'MOD_RJCWEATHER_NOAPIKEY';
 			return false;
 		}
 
@@ -82,11 +91,12 @@ class RJCWeatherHelper
 
 		$result = $http->get($url);					//file_put_contents('WEATHER.TXT',print_r($result,true));
 
+		$content = new Registry($result->body);		//file_put_contents('WEATHERm.TXT',print_r($content,true),FILE_APPEND);
+
 		if ($result->code != 200) {
+			self::$error = $content->get('message', 'MOD_RJCWEATHER_ERROR');
 			return false;
 		}
-
-		$content = new Registry($result->body);		//file_put_contents('WEATHERm.TXT',print_r($content,true),FILE_APPEND);
 
 		$forecasts = $content->get('daily', []);
 
