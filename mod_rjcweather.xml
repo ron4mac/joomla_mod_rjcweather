@@ -8,7 +8,7 @@
 	<authorEmail>ronjc@rjconline.net</authorEmail>
 	<authorUrl>ron4mac.com</authorUrl>
 	<version>1.0.3</version>
-	<updater jver="3\.[123456789]" pver="7.0" />
+	<updater jver="[34]\.[0123456789]" pver="7.0" />
 	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_rjcweather">mod_rjcweather.php</filename>
