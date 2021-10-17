@@ -3,9 +3,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Text;
 
-Factory::getDocument()->addStylesheet('media/mod_rjcweather/css/weather.css');
+$jdoc = Factory::getDocument();
+
+$jdoc->addStylesheet('media/mod_rjcweather/css/weather.css');
 
 $js = <<<JS
 (function ($) {
@@ -29,7 +30,7 @@ $js = <<<JS
 JS;
 
 // add javascript to document head
-Factory::getDocument()->addScriptDeclaration($js);
+$jdoc->addScriptDeclaration($js);
 
 ?>
 <div id="rjc_weather_id<?php echo $moduleID; ?>">

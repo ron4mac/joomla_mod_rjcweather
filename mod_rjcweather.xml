@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>ronjc@rjconline.net</authorEmail>
 	<authorUrl>ron4mac.com</authorUrl>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<updater jver="3\.[123456789]" pver="7.0" />
 	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
 	<files>
@@ -30,14 +30,16 @@
 					label="MOD_RJCWEATHER_PARAM_GLOBAL_COORDS_LABEL"
 				/>
 
-				<field name="lat" type="text" filter="float"
+				<field name="lat" type="text"
 					required="true"
+					class="validate-numeric"
 					label="MOD_RJCWEATHER_PARAM_LATITUDE_LABEL"
 					description="MOD_RJCWEATHER_PARAM_LATITUDE_DESC"
 				/>
 
-				<field name="lng" type="text" filter="float"
+				<field name="lng" type="text"
 					required="true"
+					class="validate-numeric"
 					label="MOD_RJCWEATHER_PARAM_LONGITUDE_LABEL"
 					description="MOD_RJCWEATHER_PARAM_LONGITUDE_DESC"
 				/>
@@ -86,13 +88,6 @@
 					description="MOD_RJCWEATHER_PARAM_APIKEY_DESC"
 				/>
 
-<!--
-				<field name="apikey" type="text"
-					required="true"
-					label="MOD_RJCWEATHER_PARAM_APIKEY_LABEL"
-				/>
--->
-
 			</fieldset>
 
 			<fieldset name="advanced">
@@ -119,34 +114,7 @@
 				</field>
 
 				<field type="spacer" name="advsep" hr="true" />
-<!--
-				<field name="layout" type="modulelayout"
-					label="JFIELD_ALT_LAYOUT_LABEL"
-					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
-				/>
 
-				<field name="moduleclass_sfx" type="textarea" rows="3"
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
-				/>
-
-				<field name="cache" type="list" default="0"
-					label="COM_MODULES_FIELD_CACHING_LABEL"
-					description="COM_MODULES_FIELD_CACHING_DESC"
-				>
-					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
-					<option value="1">JGLOBAL_USE_GLOBAL</option>
-				</field>
-
-				<field name="cache_time" type="number" default="0" filter="integer"
-					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
-					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
-				/>
-
-				<field name="cachemode" type="hidden" default="itemid">
-					<option value="itemid"></option>
-				</field>
--->
 			</fieldset>
 		</fields>
 	</config>

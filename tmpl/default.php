@@ -15,14 +15,11 @@ $forecasts = $weather['forecasts'];
 $cwtime = $owm ? $current->dt : gmdate('Hi', $current->ts);
 if (!$owm && $cwtime < 200) $cwtime += 2400;
 $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false : true;
-//echo $cwtime.' - '.$current->sunrise.' - '.$current->sunset;
-
-//echo'<xmp>';var_dump($weather);echo'</xmp>';
 ?>
 <div id="mod-rjcw_id<?php echo $moduleID; ?>" class="mod-rjcw">
 
 	<div class="mod-rjcw_c">
-<?php if (true): ?>
+
 		<div class="mod-rjcw_cleft">
 			<img class="mod-rjcw-icon_big" src="<?php echo RJCWeatherHelper::icon($owm ? $now->id : $now->code, $params, $nighticon); ?>"
 			height="96px"
@@ -34,8 +31,7 @@ $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false :
 				<?php echo RJCWeatherHelper::temp($current->temp, $params); ?>
 			</p>
 		</div>
-<?php endif; ?>
-<?php if (true): ?>
+
 		<div class="mod-rjcw_cright">
 			<?php if ($params->get('city')==1) { ?>
 			<p class="mod-rjcw_city"><?php echo $location ?></p>
@@ -68,11 +64,11 @@ $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false :
 			<div class="mod-rjcw-row"><?php echo Text::_('MOD_RJCWEATHER_HITODAY'); ?>: <?php echo RJCWeatherHelper::temp($forecasts[0]->temp->max, $params); ?></div>
 			<?php } ?>
 		</div>
+
 		<div style="clear:both"></div>
-<?php endif; ?>
+
 	</div>
 
-<?php if (true): ?>
 	<div style="clear:both"></div>
 	<?php if ($params->get('forecast') != 'disabled') { ?>
 	<div class="mod-rjcw_forecasts">
@@ -117,5 +113,5 @@ $nighticon = $cwtime > $current->sunrise && $cwtime < $current->sunset ? false :
 	</div>
 	<?php } ?>
 	<div style="clear:both"></div>
-<?php endif; ?>
+
 </div>
