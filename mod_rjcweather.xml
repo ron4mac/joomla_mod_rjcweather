@@ -20,7 +20,6 @@
 	<media destination="mod_rjcweather" folder="media">
 		<folder>css</folder>
 		<folder>icons</folder>
-		<folder>scss</folder>
 	</media>
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_rjcweather/fields">

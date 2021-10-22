@@ -27,7 +27,7 @@ foreach ($files as $file) {
 	$fpath = $dirts.$file;
 	if (is_dir($fpath)) {
 		$html .= '<a href="'.$self.'?d='.$fpath.'"><div class="fold"><span>'.$file.'</span>';
-		$html .= '<img src="../css/folder.svg" height="64px" /></div></a>';
+		$html .= '<img src="folder.svg" height="64px" /></div></a>';
 		continue;
 	}
 	if (substr(finfo_file($finfo,$fpath),0,6) != 'image/') continue;
@@ -56,7 +56,7 @@ $html .= '<br style="clear:both" />';
 .b-red {background-color:#ff2244;}
 .b-blk {background-color:#000000;}
 .b-wht {background-color:#ffffff;}
-.b-trn {background-image:url(../css/back1.png);}
+.b-trn {background-image:url(back1.png);}
 
 .fold {
 	float:left;
@@ -72,7 +72,7 @@ $html .= '<br style="clear:both" />';
 	transform:translate(-50%,-50%);
 }
 .aimg {
-	background-image:url(../css/back1.png);
+	background-image:url(back1.png);
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
@@ -88,7 +88,7 @@ function backc (colr) {
 	} else {
 		for (var i = 0; i < elms.length; i++) {
 			elms[i].style.backgroundColor = "none";
-			elms[i].style.backgroundImage = "url(../css/back1.png)";
+			elms[i].style.backgroundImage = "url(back1.png)";
 		}
 	}
 }
