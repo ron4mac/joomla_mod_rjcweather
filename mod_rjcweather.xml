@@ -2,13 +2,13 @@
 <extension type="module" version="3.9" client="site" method="upgrade">
 	<name>mod_rjcweather</name>
 	<author>{ron4mac}</author>
-	<creationDate>October 2021</creationDate>
-	<copyright>Copyright (C) 2021 RJCreations. All rights reserved.</copyright>
+	<creationDate>April 2022</creationDate>
+	<copyright>Copyright (C) 2022 RJCreations. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>ronjc@rjconline.net</authorEmail>
 	<authorUrl>ron4mac.com</authorUrl>
-	<version>1.0.3</version>
-	<updater jver="[34]\.[0123456789]" pver="7.0" />
+	<version>1.1</version>
+	<updater jver="(3\.[89])||(3\.1\d)||(4\.[01])" pver="7.0" />
 	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_rjcweather">mod_rjcweather.php</filename>

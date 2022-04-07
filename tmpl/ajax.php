@@ -9,24 +9,19 @@ $jdoc = Factory::getDocument();
 $jdoc->addStylesheet('media/mod_rjcweather/css/weather.css');
 
 $js = <<<JS
-(function ($) {
-	$(document).ready(function () {
-		var request = {
-			'option': 'com_ajax',
-			'module': 'rjcweather',
-			'modid': {$moduleID},
-			'format': 'raw'
-		};
-		$.ajax({
-			type: 'POST',
-			data: request,
-			success: function (resp) {
-				$('#rjc_weather_id{$moduleID}').html(resp);
-			}
-		});
-		return false;
-	});
-})(jQuery);
+window.addEventListener('load', () => {
+	let fd = new FormData();
+	fd.append('option','com_ajax');
+	fd.append('module','rjcweather');
+	fd.append('modid', {$moduleID});
+	fd.append('format','raw');
+	wdiv = document.getElementById('rjc_weather_id{$moduleID}');
+	fetch('', {method:'POST', body: fd})
+	.then(resp => { if (!resp.ok) throw new Error(`Network response was not OK (\${resp.status})`); return resp.text(); })
+	.then(htm => wdiv.innerHTML = htm)
+	.catch(err => wdiv.innerHTML = err);
+	return false;
+});
 JS;
 
 // add javascript to document head
