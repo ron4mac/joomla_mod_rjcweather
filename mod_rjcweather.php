@@ -7,6 +7,6 @@ $moduleName = basename(dirname(__FILE__));
 $moduleID = $module->id;
 $layout = $params->get('layout', 'ajax');
 
-$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
+$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx', ''), ENT_COMPAT, 'UTF-8');
 
 require JModuleHelper::getLayoutPath($moduleName, $layout);
