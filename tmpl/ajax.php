@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
 	fd.append('module','rjcweather');
 	fd.append('modid', {$moduleID});
 	fd.append('format','raw');
-	wdiv = document.getElementById('rjc_weather_id{$moduleID}');
+	let wdiv = document.getElementById('rjc_weather_id{$moduleID}');
 	fetch('', {method:'POST', body: fd})
 	.then(resp => { if (!resp.ok) throw new Error(`Network response was not OK (\${resp.status})`); return resp.text(); })
 	.then(htm => wdiv.innerHTML = htm)
