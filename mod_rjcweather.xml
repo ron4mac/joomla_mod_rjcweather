@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>ronjc@rjconline.net</authorEmail>
 	<authorUrl>ron4mac.com</authorUrl>
-	<version>1.1</version>
+	<version>1.1.0</version>
 	<updater jver="(3\.[89])||(3\.1\d)||(4\.[01])" pver="7.0" />
 	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
 	<files>
@@ -118,6 +118,6 @@
 		</fields>
 	</config>
 	<updateservers>
-		<server type="extension" priority="1" name="RJCWeather Updates">http://rjcrans.net/jupdates/mod_rjcweather/updates.php</server>
+		<server type="extension" priority="1" name="RJCWeather Updates">https://rjcrans.net/jupdates/mod_rjcweather/updates.php</server>
 	</updateservers>
 </extension>
