@@ -1,4 +1,12 @@
 <?php
+/**
+* @package		mod_rjcweather
+* @copyright	Copyright (C) 2015-2024 RJCreations. All rights reserved.
+* @license		GNU General Public License version 3 or later; see LICENSE.txt
+* @since		1.2.0
+*/
+namespace RJCreations\Module\RjcWeather\Site\Helper;
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
@@ -7,35 +15,31 @@ use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Http\HttpFactory;
+use Joomla\CMS\Helper\ModuleHelper;
 
-class modRJCWeatherHelper
+class RjcweatherHelper
 {
-	// AJAX call made by COM_AJAX 
-	public static function getAjax ()
+	public $error;
+
+	public function getAjax ()
 	{
 		$moduleName = basename(dirname(__FILE__));
 		$moduleID = Factory::getApplication()->input->post->getString('modid');
-		$module = JModuleHelper::getModuleById($moduleID);
+		$module = ModuleHelper::getModuleById($moduleID);
 		$params = new Registry($module->params);
-		$weather = RJCWeatherHelper::getWeather($params);
+		$weather = $this->getWeather($params);
 
 		if (!$weather) {
-			echo Text::_(RJCWeatherHelper::$error);
-			return;
+			return $this->error;
 		}
 
-		require JModuleHelper::getLayoutPath($moduleName, 'default');
+		require ModuleHelper::getLayoutPath('mod_rjcweather', 'ajax');
+
+		// fails if nothing returned
+		return '';
 	}
 
-}
-
-
-class RJCWeatherHelper
-{
-
-	public static $error;
-
-	public static function getWeather ($params)
+	public function getWeather ($params)
 	{
 		// get the selected weather data source (openweathermap or weatherbit)
 		$source = $params->get('source', 'ow');
@@ -53,7 +57,7 @@ class RJCWeatherHelper
 
 		$cache = Cache::getInstance('callback', $options);
 
-		$weather = $cache->get('RJCWeatherHelper::'.$source.'LoadWeatherInformation', [$params]);
+		$weather = $cache->get('RJCreations\Module\RjcWeather\Site\Helper\RjcweatherHelper::'.$source.'LoadWeatherInformation', [$params]);
 
 		// Delete cache if loading didn't work
 		if ($weather === false) {
@@ -76,7 +80,7 @@ class RJCWeatherHelper
 		$apikey = $params->get('apikey_ow');
 
 		if (empty($apikey)) {
-			self::$error = 'MOD_RJCWEATHER_NOAPIKEY';
+			$this->error = 'MOD_RJCWEATHER_NOAPIKEY';
 			return false;
 		}
 
@@ -94,7 +98,7 @@ class RJCWeatherHelper
 		$content = new Registry($result->body);
 
 		if ($result->code != 200) {
-			self::$error = $content->get('message', 'MOD_RJCWEATHER_ERROR');
+			$this->error = $content->get('message', 'MOD_RJCWEATHER_ERROR');
 			return false;
 		}
 
@@ -141,7 +145,7 @@ class RJCWeatherHelper
 		$content = new Registry($result->body);
 
 		if ($result->code != 200) {
-			self::$error = $content->get('error', 'MOD_RJCWEATHER_ERROR');
+			$this->error = $content->get('error', 'MOD_RJCWEATHER_ERROR');
 			return false;
 		}
 
@@ -171,7 +175,7 @@ class RJCWeatherHelper
 	}
 
 
-	public static function temp ($value, $params)
+	public function temp ($value, $params)
 	{
 		$shortunit = 'KELVIN';
 		switch ($params->get('unit')) {
@@ -186,15 +190,15 @@ class RJCWeatherHelper
 	}
 
 
-	public static function icon ($wcc, $params, $nt=false)
+	public function icon ($wcc, $params, $nt=false)
 	{
-		include_once 'iconincs/is03.php';
+		require_once 'modules/mod_rjcweather/iconincs/is03.php';
 
 		return 'media/mod_rjcweather/icons/' . getIcon($wcc, $nt, $params);
 	}
 
 
-	public static function dow ($dt)
+	public function dow ($dt)
 	{
 		return date('l', $dt);
 	}
