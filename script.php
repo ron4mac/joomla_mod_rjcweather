@@ -12,7 +12,9 @@ use Joomla\CMS\Installer\InstallerScript;
 class mod_rjcweatherInstallerScript extends InstallerScript
 {
 	protected $minimumJoomla = '4.0';
-	protected $deleteFiles = ['/modules/mod_rjcweather/mod_rjcweather.php'];
+	protected $deleteFiles = [
+		'/modules/mod_rjcweather/mod_rjcweather.php',
+		'/modules/mod_rjcweather/helper.php'];
 
 	public function install ($parent) 
 	{
