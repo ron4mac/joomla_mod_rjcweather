@@ -11,6 +11,7 @@
 	<updater jver="((4\.[1-8])||(5\.[0-3]))" pver="7.0" />
 	<description>MOD_RJCWEATHER_XML_DESCRIPTION</description>
 	<namespace path="src">RJCreations\Module\RjcWeather</namespace>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<folder>iconincs</folder>
 		<folder>language</folder>
