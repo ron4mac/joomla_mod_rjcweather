@@ -3,7 +3,7 @@
 * @package		mod_rjcweather
 * @copyright	Copyright (C) 2015-2024 RJCreations. All rights reserved.
 * @license		GNU General Public License version 3 or later; see LICENSE.txt
-* @since		1.2.0
+* @since		1.2.1
 */
 namespace RJCreations\Module\RjcWeather\Site\Helper;
 
@@ -57,7 +57,7 @@ class RjcweatherHelper
 
 		$cache = Cache::getInstance('callback', $options);
 
-		$weather = $cache->get('RJCreations\Module\RjcWeather\Site\Helper\RjcweatherHelper::'.$source.'LoadWeatherInformation', [$params]);
+		$weather = $cache->get([$this,$source.'LoadWeatherInformation'], [$params]);
 
 		// Delete cache if loading didn't work
 		if ($weather === false) {
@@ -68,9 +68,11 @@ class RjcweatherHelper
 	}
 
 
-	public static function owLoadWeatherInformation ($params)
+	public function owLoadWeatherInformation ($params)
 	{
-		$apiurl = 'https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LNG}&exclude=minutely,hourly&APPID={APIKEY}';
+		//$apiurl = 'https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LNG}&exclude=minutely,hourly&APPID={APIKEY}';
+		// forced to subscribe $ to onecall 3.0
+		$apiurl = 'https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LNG}&exclude=minutely,hourly&APPID={APIKEY}';
 
 		// get the 2 character current Joomla language code
 		$lang = substr(Factory::getLanguage()->get('tag'), 0, 2);
@@ -118,7 +120,7 @@ class RjcweatherHelper
 	}
 
 
-	public static function wbLoadWeatherInformation ($params)
+	public function wbLoadWeatherInformation ($params)
 	{
 		$apiurl_c = 'https://api.weatherbit.io/v2.0/current?lat={LAT}&lon={LNG}&units={UNIT}&key={APIKEY}';
 		$apiurl_f = 'https://api.weatherbit.io/v2.0/forecast/daily?lat={LAT}&lon={LNG}&units={UNIT}&days={DAYS}&key={APIKEY}';
