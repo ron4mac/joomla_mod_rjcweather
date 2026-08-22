@@ -1,16 +1,15 @@
 <?php
 /**
 * @package		mod_rjcweather
-* @copyright	Copyright (C) 2015-2024 RJCreations. All rights reserved.
+* @copyright	Copyright (C) 2015-2026 RJCreations. All rights reserved.
 * @license		GNU General Public License version 3 or later; see LICENSE.txt
-* @since		1.2.0
+* @since		1.2.5
 */
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
-Factory::getDocument()->addStylesheet('media/mod_rjcweather/css/weather.css');
 Factory::getLanguage()->load('mod_rjcweather', JPATH_BASE . '/modules/mod_rjcweather');
 
 $owm = $params->get('source', 'ow') == 'ow';

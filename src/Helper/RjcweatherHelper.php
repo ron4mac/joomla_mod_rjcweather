@@ -1,9 +1,9 @@
 <?php
 /**
 * @package		mod_rjcweather
-* @copyright	Copyright (C) 2015-2024 RJCreations. All rights reserved.
+* @copyright	Copyright (C) 2015-2026 RJCreations. All rights reserved.
 * @license		GNU General Public License version 3 or later; see LICENSE.txt
-* @since		1.2.1
+* @since		1.2.5
 */
 namespace RJCreations\Module\RjcWeather\Site\Helper;
 
@@ -39,7 +39,7 @@ class RjcweatherHelper
 		return '';
 	}
 
-	public function getWeather ($params)
+	private function getWeather ($params)
 	{
 		// get the selected weather data source (openweathermap or weatherbit)
 		$source = $params->get('source', 'ow');

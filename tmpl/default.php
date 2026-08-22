@@ -1,41 +1,38 @@
 <?php
 /**
 * @package		mod_rjcweather
-* @copyright	Copyright (C) 2015-2024 RJCreations. All rights reserved.
+* @copyright	Copyright (C) 2015-2026 RJCreations. All rights reserved.
 * @license		GNU General Public License version 3 or later; see LICENSE.txt
-* @since		1.2.0
+* @since		1.2.5
 */
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
 
-$jdoc = Factory::getDocument();
+$wa = Factory::getDocument()->getWebAssetManager();
 
-$jdoc->addStylesheet('media/mod_rjcweather/css/weather.css');
+$wa->registerAndUseStyle('rjcw-style', 'media/mod_rjcweather/css/weather.css');
+$wa->registerAndUseScript('rjcw-script', 'media/mod_rjcweather/js/weather.js');
+
+$params = new Registry($module->params);
 
 $moduleID = $module->id;
+$checkDly = ($params->get('cache_time', 5)+1) * 60000;
 
 $js = <<<JS
 window.addEventListener('load', () => {
-	let fd = new FormData();
-	fd.append('option','com_ajax');
-	fd.append('module','rjcweather');
-	fd.append('modid', {$moduleID});
-	fd.append('format','raw');
-	let wdiv = document.getElementById('rjc_weather_id{$moduleID}');
-	fetch('', {method:'POST', body: fd})
-	.then(resp => { if (!resp.ok) throw new Error(`Network response was not OK (\${resp.status})`); return resp.text(); })
-	.then(htm => wdiv.innerHTML = htm)
-	.catch(err => wdiv.innerHTML = err);
+	mod_rjcw({$moduleID});
+	const timerId = setInterval(() => {mod_rjcw({$moduleID});}, {$checkDly});
 	return false;
 });
 JS;
 
 // add javascript to document head
-$jdoc->addScriptDeclaration($js);
+$wa->addInlineScript($js);
 
 ?>
-<div id="rjc_weather_id<?php echo $moduleID; ?>">
+<div id="rjc_weather_id<?=$moduleID?>">
 	<div class="sp-preloader">
 		<div> </div>
 	</div>
