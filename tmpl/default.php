@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
-$wa = Factory::getDocument()->getWebAssetManager();
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 
 $wa->registerAndUseStyle('rjcw-style', 'mod_rjcweather/weather.css');
 $wa->registerAndUseScript('rjcw-script', 'mod_rjcweather/weather.js');
